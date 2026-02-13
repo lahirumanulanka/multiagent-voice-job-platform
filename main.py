@@ -29,7 +29,8 @@ async def voice_incoming(request: Request):
     Twilio hits this when someone calls your Twilio phone number.
     We respond with TwiML that starts Media Streams to our WSS endpoint.
     """
-    form = await request.form()
+    body = (await request.body()).decode("utf-8", errors="ignore")
+    print("Raw body:", body)
     call_sid = form.get("CallSid", "unknown")
     from_number = form.get("From", "unknown")
     to_number = form.get("To", "unknown")
